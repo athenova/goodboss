@@ -4,18 +4,19 @@ import schedule
 import time
 from openai import OpenAI
 
-AI_TEXT_MODEL = 'gpt-4o-mini'
+AI_TEXT_MODEL = 'deepseek-chat'
+CHAT_TOKEN_NAME = "DEEPSEEK_API_KEY"
 BOT_TOKEN_NAME = "ATHE_BOT_TOKEN"
 BOT_TOKEN = os.environ.get(BOT_TOKEN_NAME)
 # CHAT_ID = -1002374309134
 CHAT_ID = '@KaroshiyNasyalnika'
 
 def job(prompt):
-    client = OpenAI()
+    client = OpenAI(api_key=os.environ.get(CHAT_TOKEN_NAME), base_url="https://api.deepseek.com")
     text = client.chat.completions.create(
         model=AI_TEXT_MODEL,
         messages=[
-            { "role": "system", "content": f"Ты - отличный руководитель команды" },
+            { "role": "system", "content": f"Ты - технический директор, лидер команды с 100% харизмой" },
             { "role": "user", "content": prompt },
         ]
     ).choices[0].message.content
